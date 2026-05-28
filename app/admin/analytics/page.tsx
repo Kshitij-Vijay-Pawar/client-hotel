@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import AdminLayout from '@/components/AdminLayout';
 import { TrendingUp, Users, ShoppingCart, DollarSign } from 'lucide-react';

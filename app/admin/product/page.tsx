@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import AdminLayout from '@/components/AdminLayout';
 import Button from '@/components/Button';
