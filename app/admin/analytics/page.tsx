@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import AdminLayout from '@/components/AdminLayout';
+
 import { TrendingUp, Users, ShoppingCart, DollarSign } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
@@ -31,126 +31,126 @@ export default function Analytics() {
     ];
 
     return (
-        <AdminLayout>
-            <div className="p-8">
-                {/* Header */}
+
+        <div className="p-8">
+            {/* Header */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8"
+            >
+                <h1 className="text-4xl mb-2" style={{ fontFamily: "'Clash Display', sans-serif" }}>
+                    Analytics
+                </h1>
+                <p className="text-[#6E6257]">Detailed insights into your business performance</p>
+            </motion.div>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                {[
+                    { label: 'Avg. Order Value', value: '₹243', icon: DollarSign, color: '#C6A769' },
+                    { label: 'Total Customers', value: '2,340', icon: Users, color: '#8B7355' },
+                    { label: 'Order Growth', value: '+24.3%', icon: TrendingUp, color: '#D4B896' },
+                    { label: 'Repeat Rate', value: '68%', icon: ShoppingCart, color: '#A68A64' }
+                ].map((metric, index) => {
+                    const Icon = metric.icon;
+                    return (
+                        <motion.div
+                            key={metric.label}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="bg-white rounded-2xl p-6 shadow-sm"
+                        >
+                            <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${metric.color}15` }}>
+                                <Icon className="w-6 h-6" style={{ color: metric.color }} />
+                            </div>
+                            <h3 className="text-3xl mb-1" style={{ fontFamily: "'Clash Display', sans-serif" }}>
+                                {metric.value}
+                            </h3>
+                            <p className="text-[#6E6257] text-sm">{metric.label}</p>
+                        </motion.div>
+                    );
+                })}
+            </div>
+
+            {/* Charts Row 1 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Revenue Trend */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
-                >
-                    <h1 className="text-4xl mb-2" style={{ fontFamily: "'Clash Display', sans-serif" }}>
-                        Analytics
-                    </h1>
-                    <p className="text-[#6E6257]">Detailed insights into your business performance</p>
-                </motion.div>
-
-                {/* Key Metrics */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    {[
-                        { label: 'Avg. Order Value', value: '₹243', icon: DollarSign, color: '#C6A769' },
-                        { label: 'Total Customers', value: '2,340', icon: Users, color: '#8B7355' },
-                        { label: 'Order Growth', value: '+24.3%', icon: TrendingUp, color: '#D4B896' },
-                        { label: 'Repeat Rate', value: '68%', icon: ShoppingCart, color: '#A68A64' }
-                    ].map((metric, index) => {
-                        const Icon = metric.icon;
-                        return (
-                            <motion.div
-                                key={metric.label}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className="bg-white rounded-2xl p-6 shadow-sm"
-                            >
-                                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${metric.color}15` }}>
-                                    <Icon className="w-6 h-6" style={{ color: metric.color }} />
-                                </div>
-                                <h3 className="text-3xl mb-1" style={{ fontFamily: "'Clash Display', sans-serif" }}>
-                                    {metric.value}
-                                </h3>
-                                <p className="text-[#6E6257] text-sm">{metric.label}</p>
-                            </motion.div>
-                        );
-                    })}
-                </div>
-
-                {/* Charts Row 1 */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    {/* Revenue Trend */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="bg-white rounded-2xl p-6 shadow-sm"
-                    >
-                        <h2 className="text-2xl mb-6" style={{ fontFamily: "'Clash Display', sans-serif" }}>
-                            Revenue Trend
-                        </h2>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <LineChart data={monthlyData}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#EFE7DA" />
-                                <XAxis dataKey="month" stroke="#6E6257" />
-                                <YAxis stroke="#6E6257" />
-                                <Tooltip />
-                                <Line type="monotone" dataKey="revenue" stroke="#C6A769" strokeWidth={3} />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </motion.div>
-
-                    {/* Category Distribution */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="bg-white rounded-2xl p-6 shadow-sm"
-                    >
-                        <h2 className="text-2xl mb-6" style={{ fontFamily: "'Clash Display', sans-serif" }}>
-                            Sales by Category
-                        </h2>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <PieChart>
-                                <Pie
-                                    data={categoryData}
-                                    cx="50%"
-                                    cy="50%"
-                                    labelLine={false}
-                                    label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
-                                    outerRadius={100}
-                                    dataKey="value"
-                                >
-                                    {categoryData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.color} />
-                                    ))}
-                                </Pie>
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </motion.div>
-                </div>
-
-                {/* Top Products */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
+                    transition={{ delay: 0.4 }}
                     className="bg-white rounded-2xl p-6 shadow-sm"
                 >
                     <h2 className="text-2xl mb-6" style={{ fontFamily: "'Clash Display', sans-serif" }}>
-                        Top Performing Products
+                        Revenue Trend
                     </h2>
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={topProducts}>
+                        <LineChart data={monthlyData}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#EFE7DA" />
-                            <XAxis dataKey="name" stroke="#6E6257" />
+                            <XAxis dataKey="month" stroke="#6E6257" />
                             <YAxis stroke="#6E6257" />
                             <Tooltip />
-                            <Legend />
-                            <Bar dataKey="sales" fill="#C6A769" radius={[8, 8, 0, 0]} />
-                            <Bar dataKey="revenue" fill="#8B7355" radius={[8, 8, 0, 0]} />
-                        </BarChart>
+                            <Line type="monotone" dataKey="revenue" stroke="#C6A769" strokeWidth={3} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </motion.div>
+
+                {/* Category Distribution */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="bg-white rounded-2xl p-6 shadow-sm"
+                >
+                    <h2 className="text-2xl mb-6" style={{ fontFamily: "'Clash Display', sans-serif" }}>
+                        Sales by Category
+                    </h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <PieChart>
+                            <Pie
+                                data={categoryData}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={false}
+                                label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                                outerRadius={100}
+                                dataKey="value"
+                            >
+                                {categoryData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                ))}
+                            </Pie>
+                            <Tooltip />
+                        </PieChart>
                     </ResponsiveContainer>
                 </motion.div>
             </div>
-        </AdminLayout>
+
+            {/* Top Products */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="bg-white rounded-2xl p-6 shadow-sm"
+            >
+                <h2 className="text-2xl mb-6" style={{ fontFamily: "'Clash Display', sans-serif" }}>
+                    Top Performing Products
+                </h2>
+                <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={topProducts}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#EFE7DA" />
+                        <XAxis dataKey="name" stroke="#6E6257" />
+                        <YAxis stroke="#6E6257" />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="sales" fill="#C6A769" radius={[8, 8, 0, 0]} />
+                        <Bar dataKey="revenue" fill="#8B7355" radius={[8, 8, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
+            </motion.div>
+        </div>
+
     );
 }

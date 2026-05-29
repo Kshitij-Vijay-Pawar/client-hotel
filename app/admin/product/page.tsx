@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import AdminLayout from '@/components/AdminLayout';
 import Button from '@/components/Button';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { Plus, Search, Edit, Trash2 } from 'lucide-react';
@@ -16,7 +15,7 @@ export default function ProductManagement() {
     ];
 
     return (
-        <AdminLayout>
+        
             <div className="p-8">
                 {/* Header */}
                 <motion.div
@@ -105,6 +104,6 @@ export default function ProductManagement() {
                     ))}
                 </div>
             </div>
-        </AdminLayout>
+        
     );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import AdminLayout from '@/components/AdminLayout';
 import { TrendingUp, TrendingDown, DollarSign, ShoppingCart, Users, Package } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -67,7 +66,7 @@ export default function AdminDashboard() {
     ];
 
     return (
-        <AdminLayout>
+
             <div className="p-8">
                 {/* Header */}
                 <motion.div
@@ -224,6 +223,5 @@ export default function AdminDashboard() {
                     </div>
                 </motion.div>
             </div>
-        </AdminLayout>
     );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname as useLocation } from 'next/navigation';
 import { ShoppingCart, Menu, X, Coffee } from 'lucide-react';
@@ -9,6 +9,19 @@ import Button from './Button';
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+      credentials: "include",
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Not logged in");
+        return res.json();
+      })
+      .then((data) => setUser(data.user))
+      .catch(() => setUser(null));
+  }, []);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -73,6 +86,17 @@ export default function Navbar() {
                 </Button>
               </div>
 
+              {/* User Avatar */}
+              {user ? (
+                <Link href="/dashboard" className="w-9 h-9 rounded-full bg-[#C6A769] flex items-center justify-center text-white font-bold cursor-pointer hover:opacity-90 transition-opacity">
+                  {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                </Link>
+              ) : (
+                <Link href="/login" className="hidden lg:block text-[#1E1B18] hover:text-[#C6A769] font-medium transition-colors">
+                  Login
+                </Link>
+              )}
+
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -116,6 +140,15 @@ export default function Navbar() {
               <Button variant="primary" className="w-full" onClick={() => setMobileMenuOpen(false)}>
                 Reserve Table
               </Button>
+              {user ? (
+                <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block text-center text-[#1E1B18] py-2">
+                  My Dashboard
+                </Link>
+              ) : (
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="block text-center text-[#1E1B18] py-2">
+                  Login
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
